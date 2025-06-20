@@ -1,0 +1,303 @@
+ /* Reset & base */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f7f7ff; color: #eee;
+    display: flex; flex-direction: column; min-height: 100vh;
+  }
+
+    header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 15px 30px;
+            background-color: white;
+            box-shadow: 0 3px 5px rgba(6, 1, 83, 0.619);
+        }
+        
+        .logo {
+             width: 130px;
+            height: 40px;
+            position: absolute;
+            left: 30px;
+        }
+        
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: #252424;
+            font-weight: 700;
+            padding: 8px 12px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+  a {
+    color: #4ea1ff; text-decoration: none;
+  }
+  nav a:hover {
+            color: #3b82f6;
+        }
+
+  /* Container */
+  .container {
+    display: flex;
+    flex: 1;
+    max-width: 1200px;
+    margin: auto;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  /* Video Player Section */
+  .video-section {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    background: #000923;
+    border-radius: 6px;
+    padding: 20px;
+  }
+
+  video {
+    width: 100%;
+    border-radius: 5px;
+    background: rgb(229, 229, 229);
+    outline: none;
+  }
+
+  /* Controls */
+  .controls {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .btn {
+    background: #0d179f;
+    border: none;
+    padding: 4px 18px 4px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+  }
+  .btn:hover {
+    background: #0d14e8;
+  }
+  .btn:disabled {
+    background: #555;
+    cursor: not-allowed;
+  }
+
+  /* Progress Bar */
+  .progress-bar-container {
+    flex: 1;
+    height: 8px;
+    background: #13085a;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+  }
+  .progress-bar {
+    height: 100%;
+    background: #0d14e8;
+    width: 0%;
+    border-radius: 8px;
+    transition: width 0.2s ease;
+  }
+
+  /* Volume */
+  input[type=range] {
+    -webkit-appearance: none;
+    background: #0d14e8;
+    height: 6px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #13085a;;
+    cursor: pointer;
+    border-radius: 50%;
+    border: none;
+  }
+  input[type=range]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #4e4eff;
+    cursor: pointer;
+    border-radius: 50%;
+    border: none;
+  }
+
+  /* Info */
+  .video-info {
+    margin-top: 20px;
+    color: #ffffff;
+  }
+  .video-info h2 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin: 0 0 10px 0;
+    font-weight: 700;
+  }
+  .video-info p {
+    color: rgb(237, 237, 237);
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  /* Playlist Section */
+  .playlist {
+    flex: 1;
+    background: #000923;
+    border-radius: 7px;
+    margin-left: 20px;
+    padding: 13px;
+    overflow-y: auto;
+    max-height: 700px;
+  }
+  .playlist h3 {
+    
+    text-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: #f5f5f5;
+    margin-top: 13px;
+    margin-bottom: 30px;
+  }
+
+  .playlist-item {
+    display: flex;
+    cursor: pointer;
+    margin-bottom: 14px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #081b70;
+    transition: background-color 0.3s ease;
+  }
+  .playlist-item:hover {
+    background: #1c07bc;
+    color: #ffffff;
+  }
+  .playlist-item.active {
+    background: #0811bb;
+    color: white;
+  }
+  .playlist-thumb {
+   width: 90px;
+    height: 60px;
+    object-fit: cover; /* Ini yang akan membuat gambar fit dengan proporsi yang benar */
+    display: block; /* Tambahkan ini */
+  }
+  .playlist-details {
+    padding: 8px 12px;
+    flex: 1;
+  }
+  .playlist-title {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  .playlist-duration {
+    font-size: 0.8rem;
+    opacity: 0.7;
+  }
+
+  /* Footer */
+  footer {
+  background-color: #000923;
+  color: #ccc;
+  margin-top: 40px;
+  padding: 60px 50px 30px;
+  position: relative;
+  border-top: 2px solid #000;
+  box-shadow: 0 -6px 14px rgba(3, 9, 57, 0.594);
+}
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.footer-section {
+  flex: 1;
+  min-width: 250px;
+  margin-bottom: 30px;
+}
+.footer-section:first-child {
+  margin-right: 40px;
+}
+.footer-section:last-child {
+  margin-left: 40px;
+}
+.footer-section h3 {
+  color: white;
+  margin-bottom: 15px;
+}
+.footer-section ul {
+  list-style: none;
+}
+.footer-section ul li {
+  margin-bottom: 8px;
+}
+.footer-section ul li a {
+  text-decoration: none;
+  color: #bbb;
+  font-size: 14px;
+}
+.footer-section ul li a:hover {
+  color: white;
+}
+.footer-logo {
+  width: 185px;
+  height: 65px;
+  object-fit: contain;
+  margin-top: 15px;
+}
+.social-icons {
+  margin-top: 15px;
+}
+.social-icons i {
+  font-size: 20px;
+  color: #bbb;
+  margin-right: 12px;
+}
+.social-icons i:hover {
+  color: white;
+  
+}
+.copyright {
+  text-align: center;
+  color: #888;
+  font-size: 14px;
+  margin-top: 40px;
+  
+}
+
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .container {
+      flex-direction: column;
+    }
+    .playlist {
+      max-height: 300px;
+    }
+  }

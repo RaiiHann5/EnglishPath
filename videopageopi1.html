@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Interactive Video Page</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="stylesheet" href="videopage1.css">
+</head>
+<body>
+
+   <header>
+        <div class="logo">
+            <img src="Photo/english_path_blue-removebg-preview.png" alt="Logo">
+        </div>
+        <nav>
+            <ul>
+               <li><a href="video.html">Home</a></li>
+            </ul>
+        </nav>
+    </header>
+
+  <div class="container">
+    <section class="video-section">
+      <video id="videoPlayer" src="videoo/announcement1.mp4" preload="metadata"></video>
+      <div class="controls">
+        <button id="btnPlayPause" class="btn">Play</button>
+        <div class="progress-bar-container" id="progressContainer" title="Seek">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <input type="range" id="volumeSlider" min="0" max="1" step="0.05" value="1" title="Volume" />
+        <button id="btnSpeed" class="btn" title="Speed">1x</button>
+        <button id="btnFullscreen" class="btn" title="Fullscreen">Fullscreen</button>
+      </div>
+      <div class="video-info">
+        <h2 id="videoTitle">Flower Blooming</h2>
+        <p id="videoDescription">A beautiful timelapse of a flower blooming in nature.</p>
+      </div>
+    </section>
+
+    <aside class="playlist">
+      <h3>Playlist</h3>
+      <div id="playlistContainer">
+        <!-- Playlist items will be injected here -->
+      </div>
+    </aside>
+  </div>
+
+   <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3 data-translate="about_footer">About EnglishPath</h3>
+        <p data-translate="footer_desc">EnglishPath is a learning platform designed to improve your English skills interactively and effectively.</p>
+        <img src="photo/english path logo.png" alt="EnglishPath Logo" class="footer-logo" />
+      </div>
+      <div class="footer-section">
+        <h3 data-translate="quick_links">Quick Links</h3>
+        <ul>
+          <li><a href="index.html" data-translate="home">Home</a></li>
+          <li><a href="about.html" data-translate="aboutus">About Us</a></li>
+          <li><a href="feedbackpage.html" data-translate="contact">Contact</a></li>
+          <li><a href="material.html" data-translate="material">Material</a></li>
+          <li><a href="video.html" data-translate="video">Video</a></li>
+          <li><a href="quiz.html" data-translate="quiz">Quiz</a></li>
+          <li><a href="exercise.html" data-translate="exercise">Exercise</a></li>
+        </ul>
+        
+      </div>
+      <div class="footer-section">
+        <h3 data-translate="contact_us">Contact Us</h3>
+        <p>Phone: +62 878-4407-8413</p>
+        <p>Email: englishpath@email.com</p>
+        <div class="social-icons">
+         <a href="https://wa.me/6287844078413"><i class="bi bi-whatsapp"></i></a>
+         <a href="https://www.instagram.com/raiiiirz?igsh=MW40Mm1qdzlmbDIweQ=="><i class="bi bi-instagram"></i></a>
+         <a href="https://t.me/hannnnorcaa?text=Halo%2C%20saya%20ingin%20bertanya%20tentang%20EnglishPath%21" target="_blank"> <i class="bi bi-telegram"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">© 2025 EnglishPath. All Rights Reserved.</div>
+  </footer>
+
+  <img src="photo/opinionn1.jpg" alt="">
+ 
+
+
+<script>
+  const videos = [
+    {
+      title: "Opinion Learn Video 1",
+      description: "How to give your opinion clearly.",
+      src: "videoo/opinion1.mp4",
+      thumbnail: "photo/opinionn1.jpg",
+      duration: "8:52"
+    },
+    {
+      title: "Opinion Learn Video 2",
+      description: "Useful phrases to share thoughts.",
+      src: "videoo/opinion2.mp4",
+      thumbnail: "photo/opinionn2.jpg",
+      duration: "7:11"
+    },
+    {
+      title: "Opinion Learn Video 3",
+      description: "Examples of opinion writing.",
+      src: "videoo/opinion3.mp4",
+      thumbnail: "photo/opinionn3.jpg",
+      duration: "1:14"
+    },
+    {
+      title: "Opinion Learn Video 4",
+      description: "Agreeing and disagreeing politely.",
+      src: "videoo/opinion4.mp4",
+      thumbnail: "photo/opinionn4.jpg",
+      duration: "2:36"
+    }
+  ];
+
+  const videoPlayer = document.getElementById('videoPlayer');
+  const btnPlayPause = document.getElementById('btnPlayPause');
+  const progressBar = document.getElementById('progressBar');
+  const progressContainer = document.getElementById('progressContainer');
+  const volumeSlider = document.getElementById('volumeSlider');
+  const btnSpeed = document.getElementById('btnSpeed');
+  const btnFullscreen = document.getElementById('btnFullscreen');
+  const videoTitle = document.getElementById('videoTitle');
+  const videoDescription = document.getElementById('videoDescription');
+  const playlistContainer = document.getElementById('playlistContainer');
+
+  let currentIndex = 0;
+  let isPlaying = false;
+  let playbackRate = 1;
+
+  function loadVideo(index) {
+    const video = videos[index];
+    videoPlayer.src = video.src;
+    videoTitle.textContent = video.title;
+    videoDescription.textContent = video.description;
+    updateActivePlaylist(index);
+    currentIndex = index;
+    resetProgress();
+  }
+
+  function updateActivePlaylist(index) {
+    const items = playlistContainer.querySelectorAll('.playlist-item');
+    items.forEach((item, i) => {
+      item.classList.toggle('active', i === index);
+    });
+  }
+
+  function resetProgress() {
+    progressBar.style.width = '0%';
+  }
+
+  // Play or pause video
+  btnPlayPause.addEventListener('click', () => {
+    if (videoPlayer.paused) {
+      videoPlayer.play();
+    } else {
+      videoPlayer.pause();
+    }
+  });
+
+  videoPlayer.addEventListener('play', () => {
+    btnPlayPause.textContent = 'Pause';
+    isPlaying = true;
+  });
+
+  videoPlayer.addEventListener('pause', () => {
+    btnPlayPause.textContent = 'Play';
+    isPlaying = false;
+  });
+
+  // Update progress bar while playing
+  videoPlayer.addEventListener('timeupdate', () => {
+    const progressPercent = (videoPlayer.currentTime / videoPlayer.duration) * 100;
+    progressBar.style.width = progressPercent + '%';
+  });
+
+  // Seek video when clicking progress bar container
+  progressContainer.addEventListener('click', (e) => {
+    const rect = progressContainer.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const width = rect.width;
+    const newTime = (clickX / width) * videoPlayer.duration;
+    videoPlayer.currentTime = newTime;
+  });
+
+  // Volume control
+  volumeSlider.addEventListener('input', (e) => {
+    videoPlayer.volume = e.target.value;
+  });
+
+  // Playback speed control
+  btnSpeed.addEventListener('click', () => {
+    playbackRate += 0.5;
+    if (playbackRate > 2) playbackRate = 0.5;
+    videoPlayer.playbackRate = playbackRate;
+    btnSpeed.textContent = playbackRate + 'x';
+  });
+
+  // Fullscreen toggle
+  btnFullscreen.addEventListener('click', () => {
+    if (!document.fullscreenElement) {
+      videoPlayer.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  });
+
+  // Load playlist
+  function renderPlaylist() {
+    playlistContainer.innerHTML = '';
+    videos.forEach((video, index) => {
+      const item = document.createElement('div');
+      item.classList.add('playlist-item');
+      if(index === currentIndex) item.classList.add('active');
+
+      item.innerHTML = `
+        <img src="${video.thumbnail}" alt="${video.title}" class="playlist-thumb" />
+        <div class="playlist-details">
+          <h4 class="playlist-title">${video.title}</h4>
+          <div class="playlist-duration">${video.duration}</div>
+        </div>
+      `;
+
+      item.addEventListener('click', () => {
+        loadVideo(index);
+        videoPlayer.play();
+      });
+
+      playlistContainer.appendChild(item);
+    });
+  }
+
+  // Auto play next video when current ends
+  videoPlayer.addEventListener('ended', () => {
+    if(currentIndex < videos.length - 1) {
+      loadVideo(currentIndex + 1);
+      videoPlayer.play();
+    } else {
+      btnPlayPause.textContent = 'Play';
+    }
+  });
+
+  // Initialize
+  loadVideo(currentIndex);
+  renderPlaylist();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,337 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+  }
+
+  /* Header */
+     header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+             width: 130px;
+            height: 40px;
+            position: absolute;
+            left: 30px;
+        }
+        
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            padding: 8px 12px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+         nav a:hover {
+            color: #3b82f6;
+        }
+
+        .floating-translate-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #3b82f6;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.floating-translate-btn:hover {
+  transform: scale(1.1);
+}
+
+.translate-logo {
+  width: 25px;
+  opacity: 0.9;
+}
+
+[data-translate] {
+  display: inline-block;
+  transition: opacity 0.3s ease;
+  will-change: opacity;
+}
+
+        
+        .hero {
+           display: flex;
+           flex-direction: row-reverse; /* ini yang tukar posisi kiri-kanan */
+           padding: 40px 30px;
+           align-items: center;
+           max-width: 1100px;
+           margin: 0 auto;
+        }
+
+        .hero-content {
+  flex: 1;
+  padding-left: 40px; /* ganti dari padding-right */
+  padding-top: 30px;
+  position: relative;
+  right: 60px;
+  bottom: 5px;
+
+}
+
+.hero-image {
+  flex: 1;
+  height: 250px;
+}
+
+.hero-image img {
+  width: 600px;
+  height: 550px;
+  object-fit: contain;
+  position: relative;
+  right: 35px; /* reset posisi */
+  bottom: 150px; /* reset posisi */
+  z-index: -10;
+}
+        
+        h1 {
+          font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 2.7rem;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            margin-bottom: 16px;
+            color: #666;
+            line-height: 1.5;
+            font-size: 16px;
+        }
+        
+        button {
+          width: 160px;
+          height: 40px;
+           text-align: center;
+            position: relative;
+            left: 90px;
+            background-color: #0003b5;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        button:hover {
+          background-color: #00027a;
+        }
+
+        /* Card Section */
+        .slider-section {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  display: flex;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  gap: 40px;
+  padding: 40px 20px;
+}
+
+.timeline-title {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #001f4f;
+  position: relative;
+  left: 500px;
+  bottom: 50px;
+}
+
+.timeline-titlee {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #001f4f;
+  position: relative;
+  left: 550px;
+  bottom: 50px;
+}
+
+
+.slider-section::-webkit-scrollbar {
+  display: none;
+}
+
+.features {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+  padding: 60px 20px;
+}
+
+.features-container {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
+.feature-card {
+  background: white;
+  width: 200px;
+  height: 220px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  text-decoration: none;
+  color: #000;
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  flex-shrink: 0;
+}
+
+.feature-icon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.feature-icon img {
+  width: 48px;
+  height: 48px;
+}
+
+.feature-card h3 {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.feature-card p {
+  color: #555;
+  font-size: 13px;
+  margin: 0;
+}
+
+        
+
+        /* Footer */
+      footer {
+  background-color: #000923;
+  color: #ccc;
+  padding: 60px 50px 30px;
+  position: relative;
+  border-top: 2px solid #000;
+  box-shadow: 0 -6px 14px rgba(0, 0, 0, 0.4);
+}
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.footer-section {
+  flex: 1;
+  min-width: 250px;
+  margin-bottom: 30px;
+}
+.footer-section:first-child {
+  margin-right: 40px;
+}
+.footer-section:last-child {
+  margin-left: 40px;
+}
+.footer-section h3 {
+  color: white;
+  margin-bottom: 15px;
+}
+.footer-section ul {
+  list-style: none;
+}
+.footer-section ul li {
+  margin-bottom: 8px;
+}
+.footer-section ul li a {
+  text-decoration: none;
+  color: #bbb;
+  font-size: 14px;
+}
+.footer-section ul li a:hover {
+  color: white;
+}
+
+.phone{
+  text-align: center;
+  margin: 10px;
+  position: relative;
+  top: 24px;
+  right: 110px;
+  margin-top:10px ;
+}
+
+ .email, .social-icons{
+  position: relative;
+  top: 13px;
+}
+
+.footer-logo {
+  width: 185px;
+  height: 65px;
+  object-fit: contain;
+  margin-top: 15px;
+}
+.social-icons {
+  margin-top: 15px;
+}
+.social-icons i {
+  font-size: 20px;
+  color: #bbb;
+  margin-right: 12px;
+}
+.social-icons i:hover {
+  color: white;
+  
+}
+.copyright {
+  position: relative;
+  left: 450px;
+  color: #888;
+  font-size: 14px;
+  margin-top: 40px;
+  
+}
+.contactus{
+  position: relative;
+  bottom: 10px;
+  margin-bottom: 20px;
+}

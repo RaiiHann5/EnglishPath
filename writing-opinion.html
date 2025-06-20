@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Writing Test</title>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #ffffff;
+      --secondary: #f5f9ff;
+      --accent: #3a86ff;
+      --accent-dark: #2667cc;
+      --text: #2d3748;
+      --text-light: #4a5568;
+      --correct: #48bb78;
+      --incorrect: #f56565;
+      --border: #e2e8f0;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      --shadow-hover: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+      background-color: var(--secondary);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    
+    header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .logo {
+      width: 130px;
+      height: 40px;
+      position: absolute;
+      left: 30px;
+    }
+
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      padding: 8px 12px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    nav a:hover {
+            color: #3b82f6;
+        }
+
+
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: var(--primary);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    #progress-container {
+      width: 100%;
+      background-color: var(--secondary);
+      height: 8px;
+      border-radius: 4px;
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+
+    #progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+      transition: width 0.4s ease;
+    }
+
+    /* Question Styles */
+    .question-container {
+      background-color: var(--primary);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border);
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+
+    .question {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    .question-number {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      background-color: var(--accent);
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 28px;
+      margin-right: 8px;
+      font-size: 0.9rem;
+    }
+
+    /* Essay Answer Styles */
+    .essay-question {
+      margin-bottom: 1.5rem;
+    }
+
+    .dialog-line {
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      background-color: var(--secondary);
+      border-radius: 8px;
+      border-left: 3px solid var(--accent);
+    }
+
+    .answer-input {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-top: 0.5rem;
+      font-size: 1rem;
+      resize: vertical;
+      min-height: 50px;
+    }
+
+    .answer-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(58, 134, 255, 0.2);
+    }
+
+    .fill-blank {
+      border-bottom: 2px dashed var(--text-light);
+      padding: 0 0.2rem;
+      display: inline-block;
+      min-width: 150px;
+    }
+
+    /* Navigation Buttons */
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1.5rem;
+    }
+
+    button {
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.8rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      min-width: 150px;
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--accent-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    button:disabled {
+      background-color: #cbd5e0;
+      cursor: not-allowed;
+    }
+
+    /* Preview Page Styles */
+    .preview-question {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .preview-answer {
+      margin-top: 0.5rem;
+      padding: 0.75rem;
+      border-radius: 8px;
+      background-color: #e6f0ff;
+      border: 1px solid var(--accent);
+    }
+
+    .unanswered {
+      color: var(--incorrect);
+      font-style: italic;
+    }
+
+    /* Results Page Styles */
+    .result-question {
+      margin-bottom: 2rem;
+    }
+
+    .user-answer {
+      background-color: rgba(245, 101, 101, 0.1);
+      border-left: 3px solid var(--incorrect);
+      padding: 0.8rem;
+      margin: 0.5rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .correct-answer {
+      background-color: rgba(72, 187, 120, 0.1);
+      border-left: 3px solid var(--correct);
+      padding: 0.8rem;
+      margin: 0.5rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .result-feedback {
+      margin-top: 0.5rem;
+      font-weight: 500;
+    }
+
+    .correct-feedback {
+      color: var(--correct);
+    }
+
+    .incorrect-feedback {
+      color: var(--incorrect);
+    }
+
+     footer {
+  background-color: #000923;
+  color: #ccc;
+  padding: 60px 50px 30px;
+  position: relative;
+  border-top: 2px solid #000;
+  box-shadow: 0 -6px 14px rgba(0, 0, 0, 0.4);
+}
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.footer-section {
+  flex: 1;
+  min-width: 250px;
+  margin-bottom: 30px;
+}
+.footer-section:first-child {
+  margin-right: 40px;
+}
+.footer-section:last-child {
+  margin-left: 40px;
+}
+.footer-section h3 {
+  color: white;
+  margin-bottom: 15px;
+}
+.footer-section ul {
+  list-style: none;
+}
+.footer-section ul li {
+  margin-bottom: 8px;
+}
+.footer-section ul li a {
+  text-decoration: none;
+  color: #bbb;
+  font-size: 14px;
+}
+.footer-section ul li a:hover {
+  color: white;
+}
+.footer-logo {
+  width: 185px;
+  height: 65px;
+  object-fit: contain;
+  margin-top: 15px;
+}
+.social-icons {
+  margin-top: 15px;
+}
+.social-icons i {
+  font-size: 20px;
+  color: #bbb;
+  margin-right: 12px;
+}
+.social-icons i:hover {
+  color: white;
+  
+}
+.copyright {
+  text-align: center;
+  color: #888;
+  font-size: 14px;
+  margin-top: 40px;
+  
+}
+
+  </style>
+</head>
+<body>
+
+    <header>
+    <div class="logo">
+      <img src="photo/english_path_dark.-fotor-enhance-20250517123049-removebg-preview.png" alt="Logo">
+    </div>
+    <nav>
+      <ul>
+         <li><a href="exercise.html">Home</a></li>
+      </ul>
+    </nav>
+  </header>
+
+
+  <div class="container">
+    <!-- Progress Bar -->
+    <div id="progress-container">
+      <div id="progress-bar"></div>
+    </div>
+
+    <!-- Part 1: Instructions -->
+    <section id="part1" class="section active">
+      <div style="padding: 2rem; background-color: var(--primary); border-radius: 12px; border: 1px solid var(--border); min-height: 400px;">
+        <h2 style="color: var(--accent-dark); margin-bottom: 1.5rem;">Writing Test Instructions</h2>
+        <ol style="padding-left: 1.5rem; margin-bottom: 2rem;">
+          <li style="margin-bottom: 1rem;">There are 5 writing questions</li>
+          <li style="margin-bottom: 1rem;">Complete sentences or dialogues</li>
+          <li style="margin-bottom: 1rem;">Type your answers in the provided spaces</li>
+          <li style="margin-bottom: 1rem;">Answers will be checked automatically</li>
+          <li style="margin-bottom: 1rem;">Answer all questions before submitting</li>
+        </ol>
+      </div>
+      <div class="nav-buttons">
+        <button disabled>Previous</button>
+        <button id="start-test-btn">Start Test</button>
+      </div>
+    </section>
+
+    <!-- Part 2: Questions -->
+    <section id="part2" class="section">
+      <div class="question-container" id="question-container"></div>
+      
+      <div class="nav-buttons">
+        <button id="prev-question-btn">Previous</button>
+        <button id="next-question-btn" disabled>Next</button>
+      </div>
+    </section>
+
+    <!-- Part 3: Preview Answers -->
+    <section id="part3" class="section">
+      <div style="background-color: var(--primary); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; border: 1px solid var(--border); max-height: 60vh; overflow-y: auto;">
+        <h2 style="color: var(--accent-dark); margin-bottom: 1.5rem;">Review Your Answers</h2>
+        <p style="margin-bottom: 1.5rem;">Please review your answers before submitting. You can go back to any question to make changes.</p>
+        
+        <div id="preview-container"></div>
+      </div>
+      <div class="nav-buttons">
+        <button id="back-to-questions-btn">Back to Questions</button>
+        <button id="submit-test-btn">Submit Test</button>
+      </div>
+    </section>
+
+    <!-- Part 4: Results -->
+    <section id="part4" class="section">
+      <div style="background-color: var(--primary); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; border: 1px solid var(--border); max-height: 60vh; overflow-y: auto;" id="result-container"></div>
+      <div style="text-align: center; margin-top: 2rem;">
+        <div style="font-size: 2rem; font-weight: 700; margin: 1rem 0; color: var(--accent-dark);" id="score-display"></div>
+        <button id="restart-btn">Restart Test</button>
+      </div>
+    </section>
+  </div>
+
+   <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3 data-translate="about_footer">About EnglishPath</h3>
+        <p data-translate="footer_desc">EnglishPath is a learning platform designed to improve your English skills interactively and effectively.</p>
+        <img src="photo/english path logo.png" alt="EnglishPath Logo" class="footer-logo" />
+      </div>
+      <div class="footer-section">
+        <h3 data-translate="quick_links">Quick Links</h3>
+        <ul>
+          <li><a href="index.html" data-translate="home">Home</a></li>
+          <li><a href="aboutpage.html" data-translate="aboutus">About Us</a></li>
+          <li><a href="contactpage.html" data-translate="contact">Contact</a></li>
+          <li><a href="material.html" data-translate="material">Material</a></li>
+          <li><a href="video.html" data-translate="video">Video</a></li>
+          <li><a href="quiz.html" data-translate="quiz">Quiz</a></li>
+          <li><a href="exercise.html" data-translate="exercise">Exercise</a></li>
+        </ul>
+        
+      </div>
+      <div class="footer-section">
+        <h3 data-translate="contact_us">Contact Us</h3>
+        <p>Phone: +62 878-4407-8413</p>
+        <p>Email: englishpath@email.com</p>
+        <div class="social-icons">
+         <a href="https://wa.me/6287844078413"><i class="bi bi-whatsapp"></i></a>
+         <a href="https://www.instagram.com/raiiiirz?igsh=MW40Mm1qdzlmbDIweQ=="><i class="bi bi-instagram"></i></a>
+         <a href="https://t.me/hannnnorcaa?text=Halo%2C%20saya%20ingin%20bertanya%20tentang%20EnglishPath%21" target="_blank"> <i class="bi bi-telegram"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">© 2025 EnglishPath. All Rights Reserved.</div>
+  </footer>
+
+  <script>
+    // Test data - 5 writing questions
+   const testData = [
+  
+   {
+    question: "Fill in the blank with your opinion:",
+    sentence: "I think ice cream is ______<span class='fill-blank'></span>.",
+    answer: "",
+    userAnswer: ""
+  },
+  {
+    question: "Fill in the blank with your opinion:",
+    sentence: "In my opinion, math is ______<span class='fill-blank'></span>.",
+    answer: "",
+    userAnswer: ""
+  },
+  {
+    question: "Fill in the blank with your opinion:",
+    sentence: "To me, the best day of the week is ______<span class='fill-blank'></span>.",
+    answer: "",
+    userAnswer: ""
+  },
+  {
+    question: "Fill in the blank with your opinion:",
+    sentence: "I believe that cats are ______<span class='fill-blank'></span> pets.",
+    answer: "",
+    userAnswer: ""
+  },
+  {
+    question: "Fill in the blank with your opinion:",
+    sentence: "I feel that online classes are ______<span class='fill-blank'></span>.",
+    answer: "",
+    userAnswer: ""
+  }
+];
+
+
+    let currentPart = 1;
+    let currentQuestionIndex = 0;
+
+    // DOM elements
+    const progressBar = document.getElementById("progress-bar");
+    const startTestBtn = document.getElementById("start-test-btn");
+    const prevQuestionBtn = document.getElementById("prev-question-btn");
+    const nextQuestionBtn = document.getElementById("next-question-btn");
+    const backToQuestionsBtn = document.getElementById("back-to-questions-btn");
+    const submitTestBtn = document.getElementById("submit-test-btn");
+    const restartBtn = document.getElementById("restart-btn");
+
+    const questionContainer = document.getElementById("question-container");
+    const previewContainer = document.getElementById("preview-container");
+    const resultContainer = document.getElementById("result-container");
+    const scoreDisplay = document.getElementById("score-display");
+
+    // Update progress bar based on answered questions
+    function updateProgress() {
+      const answeredCount = testData.filter(q => {
+        if (Array.isArray(q.userAnswer)) {
+          return q.userAnswer.every(ans => ans.trim() !== "");
+        }
+        return q.userAnswer.trim() !== "";
+      }).length;
+      
+      const progressPercent = (answeredCount / testData.length) * 100;
+      progressBar.style.width = `${progressPercent}%`;
+    }
+
+    // Show current part
+    function showPart(part) {
+      currentPart = part;
+      document.querySelectorAll(".section").forEach(section => {
+        section.classList.remove("active");
+      });
+      document.getElementById(`part${part}`).classList.add("active");
+
+      if (part === 2) {
+        loadQuestion();
+      } else if (part === 3) {
+        showPreview();
+      } else if (part === 4) {
+        showResults();
+      }
+    }
+
+    // Load question
+    function loadQuestion() {
+      const question = testData[currentQuestionIndex];
+      let html = `
+        <div class="question">
+          <span class="question-number">${currentQuestionIndex + 1}</span>
+          ${question.question}
+        </div>
+        <div class="essay-question">
+      `;
+
+      // Different question types
+      if (question.dialog) {
+        // Dialogue completion
+        question.dialog.forEach((line, index) => {
+          if (index === question.blankIndex) {
+            const parts = line.split("_____");
+            html += `
+              <div class="dialog-line">
+                ${parts[0]}
+                <input type="text" class="answer-input" 
+                       value="${question.userAnswer || ''}" 
+                       placeholder="Type your answer here"
+                       data-index="0">
+                ${parts[1] || ''}
+              </div>
+            `;
+          } else {
+            html += `<div class="dialog-line">${line}</div>`;
+          }
+        });
+      } 
+      else if (question.sentence && question.sentence.includes("fill-blank")) {
+        // Fill in the blank
+        html += `
+          <div>${question.sentence.replace("fill-blank", "")}</div>
+          <input type="text" class="answer-input" 
+                 value="${question.userAnswer || ''}" 
+                 placeholder="Type your answer here"
+                 data-index="0">
+        `;
+      }
+      else if (question.sentence) {
+        // Sentence continuation
+        html += `
+          <div class="dialog-line">${question.sentence}</div>
+          <textarea class="answer-input" 
+                    placeholder="Continue the sentence (minimum 5 words)"
+                    data-index="0">${question.userAnswer || ''}</textarea>
+        `;
+      }
+      else if (question.prompt) {
+        // Short response
+        html += `
+          <div class="dialog-line">${question.prompt}</div>
+          <textarea class="answer-input" 
+                    placeholder="Type your response (10-20 words)"
+                    data-index="0">${question.userAnswer || ''}</textarea>
+        `;
+      }
+
+      html += `</div>`;
+      questionContainer.innerHTML = html;
+
+      // Add event listeners to input fields
+      document.querySelectorAll('.answer-input').forEach(input => {
+        input.addEventListener('input', (e) => {
+          const answerIndex = parseInt(input.getAttribute('data-index'));
+          
+          if (Array.isArray(testData[currentQuestionIndex].userAnswer)) {
+            testData[currentQuestionIndex].userAnswer[answerIndex] = e.target.value;
+          } else {
+            testData[currentQuestionIndex].userAnswer = e.target.value;
+          }
+          
+          updateProgress();
+          nextQuestionBtn.disabled = false;
+        });
+      });
+
+      // Update nav buttons
+      prevQuestionBtn.disabled = currentQuestionIndex === 0;
+      nextQuestionBtn.textContent = currentQuestionIndex === testData.length - 1 ? 'Review Answers' : 'Next';
+      
+      // Check if current question is answered
+      const isAnswered = Array.isArray(question.userAnswer) 
+        ? question.userAnswer.every(ans => ans.trim() !== "")
+        : question.userAnswer.trim() !== "";
+      
+      nextQuestionBtn.disabled = !isAnswered;
+    }
+
+    // Show preview of all answers before submitting
+    function showPreview() {
+      let html = '';
+      
+      testData.forEach((question, index) => {
+        const hasAnswer = Array.isArray(question.userAnswer)
+          ? question.userAnswer.some(ans => ans.trim() !== "")
+          : question.userAnswer.trim() !== "";
+        
+        let answerDisplay = '';
+        
+        if (hasAnswer) {
+          if (Array.isArray(question.userAnswer)) {
+            answerDisplay = question.userAnswer.join(", ");
+          } else {
+            answerDisplay = question.userAnswer;
+          }
+        }
+        
+        html += `
+          <div class="preview-question">
+            <div class="question">
+              <span class="question-number">${index + 1}</span>
+              ${question.question}
+            </div>
+            ${hasAnswer ? 
+              `<div class="preview-answer">${answerDisplay}</div>` : 
+              `<div class="unanswered">Not answered yet</div>`
+            }
+            <button class="edit-question-btn" data-index="${index}" 
+                    style="margin-top: 0.5rem; padding: 0.5rem 1rem; min-width: auto; font-size: 0.85rem;">
+              Edit Answer
+            </button>
+          </div>
+        `;
+      });
+
+      previewContainer.innerHTML = html;
+      
+      // Add event listeners to edit buttons
+      document.querySelectorAll('.edit-question-btn').forEach(button => {
+        button.addEventListener('click', () => {
+          currentQuestionIndex = parseInt(button.getAttribute('data-index'));
+          showPart(2);
+        });
+      });
+    }
+
+    // Show results
+    function showResults() {
+      let correctCount = 0;
+      let html = '';
+
+      testData.forEach((question, index) => {
+        let isCorrect = false;
+        
+        // For questions with specific answers
+        if (question.answer && question.answer !== "") {
+          if (Array.isArray(question.answer)) {
+            isCorrect = question.answer.every((ans, i) => 
+              question.userAnswer[i].toLowerCase().trim() === ans.toLowerCase()
+            );
+          } else {
+            isCorrect = question.userAnswer.toLowerCase().trim() === question.answer.toLowerCase();
+          }
+          
+          if (isCorrect) correctCount++;
+        } else {
+          // For open-ended questions, consider as "correct" if answered
+          isCorrect = Array.isArray(question.userAnswer)
+            ? question.userAnswer.some(ans => ans.trim() !== "")
+            : question.userAnswer.trim() !== "";
+          
+          if (isCorrect) correctCount++;
+        }
+
+        html += `
+          <div class="result-question">
+            <div class="question">
+              <span class="question-number">${index + 1}</span>
+              ${question.question}
+            </div>
+            
+            <div class="user-answer">
+              <strong>Your answer:</strong><br>
+              ${Array.isArray(question.userAnswer) ? question.userAnswer.join(", ") : question.userAnswer}
+            </div>
+        `;
+
+        // Show correct answer if available
+        if (question.answer && question.answer !== "") {
+          html += `
+            <div class="correct-answer">
+              <strong>Correct answer:</strong><br>
+              ${Array.isArray(question.answer) ? question.answer.join(", ") : question.answer}
+            </div>
+          `;
+        }
+
+        html += `
+            <div class="result-feedback ${isCorrect ? 'correct-feedback' : 'incorrect-feedback'}">
+              ${isCorrect ? '✓ Correct' : question.answer ? '✗ Incorrect' : '✓ Answered (open-ended)'}
+            </div>
+          </div>
+        `;
+      });
+
+      resultContainer.innerHTML = html;
+      scoreDisplay.textContent = `Score: ${correctCount}/${testData.length} (${Math.round(correctCount/testData.length * 100)}%)`;
+    }
+
+    // Check if all questions are answered
+    function allQuestionsAnswered() {
+      return testData.every(q => {
+        if (Array.isArray(q.userAnswer)) {
+          return q.userAnswer.some(ans => ans.trim() !== "");
+        }
+        return q.userAnswer.trim() !== "";
+      });
+    }
+
+    // Event listeners
+    startTestBtn.addEventListener('click', () => showPart(2));
+    
+    prevQuestionBtn.addEventListener('click', () => {
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        loadQuestion();
+      }
+    });
+    
+    nextQuestionBtn.addEventListener('click', () => {
+      if (currentQuestionIndex < testData.length - 1) {
+        currentQuestionIndex++;
+        loadQuestion();
+      } else {
+        showPart(3); // Show preview page
+      }
+    });
+    
+    backToQuestionsBtn.addEventListener('click', () => {
+      showPart(2);
+    });
+    
+    submitTestBtn.addEventListener('click', () => {
+      if (allQuestionsAnswered()) {
+        showPart(4);
+      } else {
+        alert('Please answer all questions before submitting.');
+      }
+    });
+    
+    restartBtn.addEventListener('click', () => {
+      currentPart = 1;
+      currentQuestionIndex = 0;
+      
+      // Reset all answers
+      testData.forEach(q => {
+        if (Array.isArray(q.userAnswer)) {
+          q.userAnswer = q.userAnswer.map(() => "");
+        } else {
+          q.userAnswer = "";
+        }
+      });
+      
+      updateProgress();
+      showPart(1);
+    });
+
+    // Initialize
+    showPart(1);
+    updateProgress();
+  </script>
+</body>
+</html>   

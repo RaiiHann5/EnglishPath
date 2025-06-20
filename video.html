@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Page</title>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+     <link rel="stylesheet" href="video.css">
+</head>
+<body>
+     <header>
+        <div class="logo">
+            <img src="photo/english_path_dark.-fotor-enhance-20250517123049-removebg-preview.png" alt="Logo">
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav id="navMenu">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="aboutpage.html">About</a></li>
+                <li><a href="feedbackpage.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+        <!-- Floating Translate Button -->
+ <button class="floating-translate-btn" onclick="toggleTranslate()">
+  <img src="photo/translate.png" class="translate-logo" alt="Translate">
+</button>
+
+    
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1 data-translate="video_hero_title">No books? No problem just press play!</h1>
+                <p data-translate="video_hero_desc">Boost your English with videos that explain real conversations, everyday expressions, and key vocabulary clearly.</p>
+                <button onclick="scrollToCards()" data-translate="learn_more">Learn more..</button>
+            </div>
+            <div class="hero-image">
+                <img src="photo/videobanner.png" alt="Hero Image">
+            </div>
+        </section>
+    </main>
+
+    <!-- Card -->
+     <section class="card-slider-section" id="cards">
+  <div class="slider-wrapper">
+    <div class="slider-track">
+
+      <!-- Section 1 -->
+      <div class="card-section">
+        <h2 class="section-title" data-translate="advertisement_section">Advertisement</h2>
+        <div class="card-container">
+          <div class="card">
+            <img src="photo/Uran.jpg" alt="Advertisement">
+            <div class="card-content">
+              <h3 data-translate="adv_video_1_title">Advertisement Learning Video 1</h3>
+              <p data-translate="adv_video_1_desc">Discover how advertisements persuade and influence people in everyday life.</p>
+
+              <a href="videopageadv1.html" class="btn" data-translate="start_reading">Start Reading</a>
+            </div>
+          </div>
+          <div class="card">
+            <img src="photo/Midnight Carnival.jpg" alt="Announcement">
+            <div class="card-content">
+              <h3 data-translate="adv_video_2_title">Advertisement Learning Video 2</h3>
+             <p data-translate="adv_video_2_desc">Learn to create catchy slogans, taglines, and promotional messages.</p>
+              <a href="videopageadv2.html" class="btn" data-translate="start_reading">Start Reading</a>
+            </div>
+          </div>
+          <div class="card">
+            <img src="photo/interview by Albee Shen.jpg" alt="Expressing Opinion">
+            <div class="card-content">
+              <h3 data-translate="adv_video_3_title">Advertisement Learning Video 3</h3>
+              <p data-translate="adv_video_3_desc">Analyze how brands use words and visuals to sell products or services.</p>
+              <a href="videopageadv3.html" class="btn" data-translate="start_reading">Start Reading</a>
+            </div>
+          </div>
+          <div class="card">
+            <img src="photo/pppp.jpg" alt="Narrative Text">
+            <div class="card-content">
+              <h3 data-translate="adv_video_4_title">Advertisement Learning Video 4</h3>
+             <p data-translate="adv_video_4_desc">Practice writing your own ads to develop creative and persuasive skills.</p>
+              <a href="videopageadv4.html" class="btn" data-translate="start_reading">Start Reading</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2 -->
+      <div class="card-section">
+        <h2 class="section-title" data-translate="announcement_section">Announcement</h2>
+        <div class="card-container">
+          <div class="card">
+            <img src="photo/Unini.jpg" alt="News Report">
+            <div class="card-content">
+              <h3 data-translate="anc_video_1_title">Announcement Learning Video 1</h3>
+              <p data-translate="anc_video_1_desc">Learn how to write clear and formal announcements for school and public events.</p>
+              <a href="videopageanc1.html" class="btn" data-translate="start_reading">Start Reading</a>
+            </div>
+          </div>
+          <div class="card">
+            <img src="photo/iiiii.jpg" alt="Report Text">
+            <div class="card-content">
+              <h3 data-translate="anc_video_2_title">Announcement Learning Video 2</h3>
+              <p data-translate="anc_video_2_desc">Master the structure, tone, and purpose of effective English announcements.</p>
+              <a href="videopageanc2.html" class="btn" data-translate="start_reading">Start Reading</a>
+            </div>
+          </div>
+          <div class="card">
+            <img src="photo/Modern Flat Illustration Line Drawing in blue.jpg" alt="Invitation">
+            <div class="card-content">
+              <h3 data-translate="anc_video_3_title">Announcement Learning Video 3</h3>
+             <p data-translate="anc_video_3_desc">Explore real-life examples of announcements and practice making your own.</p>
+              <a href="videopageanc3.html" class="btn" data-translate="start_reading">Start Reading</a>
+            </div>
+          </div>
+          <div class="card">
+            <img src="photo/AI-Backed Influencer Identification by Visual Generation on @creativemarket.jpg" alt="Personal Letter">
+            <div class="card-content">
+              <h3 data-translate="anc_video_4_title">Announcement Learning Video 4</h3>
+              <p data-translate="anc_video_4_desc">Understand how to inform people politely, accurately, and quickly.</p>
+              <a href="videopageanc4.html" class="btn" data-translate="start_reading">Start Reading</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3 -->
+      <div class="card-section">
+        <h2 class="section-title" data-translate="opinion_section">Opinion</h2>
+        <div class="card-container">
+          <div class="card">
+            <img src="photo/Project Management - Illustration.jpg" alt="Poster">
+            <div class="card-content">
+              <h3 data-translate="opi_video_1_title">Expressing Opinion Learning Video 1</h3>
+              <p data-translate="opi_video_1_desc">Learn how to express your thoughts clearly and respectfully in English.</p>
+
+              <a href="videopageopi1.html" class="btn" data-translate="start_reading">Start Reading</a>
+            </div>
+          </div>
+          <div class="card">
+            <img src="photo/Remote work.jpg" alt="Dialogue">
+            <div class="card-content">
+              <h3 data-translate="opi_video_2_title">Expressing Opinion Learning Video 2</h3>
+             <p data-translate="opi_video_2_desc">Explore useful phrases to agree, disagree, and share personal opinions.</p>
+              <a href="videopageopi2.html" class="btn" data-translate="start_reading">Start Reading</a>
+            </div>
+          </div>
+          <div class="card">
+            <img src="photo/Carolina Contreras.jpg" alt="Song Lyrics">
+            <div class="card-content">
+              <h3 data-translate="opi_video_3_title">Expressing Opinion Learning Video 3</h3>
+             <p data-translate="opi_video_3_desc">Practice writing and speaking your opinion with strong supporting reasons.</p>
+              <a href="videopageopi3.html" class="btn" data-translate="start_reading">Start Reading</a>
+            </div>
+          </div>
+          <div class="card">
+            <img src="photo/Wingingstones NTAB STUDIO.jpg" alt="Procedure Text">
+            <div class="card-content">
+              <h3 data-translate="opi_video_4_title">Expressing Opinion Learning Video 4</h3>
+              <p data-translate="opi_video_4_desc">Develop confidence in discussing topics through structured opinion texts.</p>
+              <a href="videopageopi4.html" class="btn" data-translate="start_reading">Start Reading</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="horizontal-step-container">
+    <h2 data-translate="how_to_learn_title">How To Learn English Properly</h2>
+    <div class="step-wrapper">
+      <div class="step-horizontal">
+        <div class="circle">1</div>
+        <p data-translate="step_1">Watch & Listen</p>
+      </div>
+      <div class="line-horizontal"></div>
+      <div class="step-horizontal">
+        <div class="circle">2</div>
+        <p data-translate="step_2">Repeat & Imitate</p>
+      </div>
+      <div class="line-horizontal"></div>
+      <div class="step-horizontal">
+        <div class="circle">3</div>
+        <p data-translate="step_3">Practice & Apply</p>
+      </div>
+    </div>
+  </section>
+
+
+     <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3 data-translate="about_footer">About EnglishPath</h3>
+        <p data-translate="footer_desc">EnglishPath is a learning platform designed to improve your English skills interactively and effectively.</p>
+        <img src="photo/english path logo.png" alt="EnglishPath Logo" class="footer-logo" />
+      </div>
+      <div class="footer-section">
+        <h3 data-translate="quick_links">Quick Links</h3>
+        <ul>
+          <li><a href="index.html" data-translate="home">Home</a></li>
+          <li><a href="aboutpage.html" data-translate="aboutus">About Us</a></li>
+          <li><a href="feedbackpage.css" data-translate="contact">Contact</a></li>
+          <li><a href="material.html" data-translate="material">Material</a></li>
+          <li><a href="video.html" data-translate="video">Video</a></li>
+          <li><a href="quiz.html" data-translate="quiz">Quiz</a></li>
+          <li><a href="exercise.html" data-translate="exercise">Exercise</a></li>
+        </ul>
+        
+      </div>
+      <div class="footer-section">
+        <h3 data-translate="contact_us">Contact Us</h3>
+        <p>Phone: +62 878-4407-8413</p>
+        <p>Email: englishpath@email.com</p>
+        <div class="social-icons">
+         <a href="https://wa.me/6287844078413"><i class="bi bi-whatsapp"></i></a>
+         <a href="https://www.instagram.com/raiiiirz?igsh=MW40Mm1qdzlmbDIweQ=="><i class="bi bi-instagram"></i></a>
+         <a href="https://t.me/hannnnorcaa?text=Halo%2C%20saya%20ingin%20bertanya%20tentang%20EnglishPath%21" target="_blank"> <i class="bi bi-telegram"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">© 2025 EnglishPath. All Rights Reserved.</div>
+  </footer>
+
+  <script src="video.js"></script>
+</body>
+</html>

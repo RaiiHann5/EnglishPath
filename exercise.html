@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="exercise.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="photo/english_path_dark.-fotor-enhance-20250517123049-removebg-preview.png" alt="Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html" data-translate="home">Home</a></li>
+                <li><a href="aboutpage.html" data-translate="about_us">About Us</a></li>
+                <li><a href="feedbackpage.html" data-translate="contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Floating Translate Button -->
+    <button class="floating-translate-btn" onclick="translatePage()">
+        <img src="photo/translate.png" alt="Translate" class="translate-logo">
+    </button>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1 data-translate="hero_title">Discover The Joy of Learning</h1>
+                <p data-translate="hero_description">Dive into fun and interesting reading content that helps you build strong reading skills, expand your vocabulary, and enjoy learning English one page at a time.</p>
+                <button onclick="scrollToCards()" data-translate="learn_more">Learn more..</button>
+            </div>
+            <div class="hero-image">
+                <img src="photo/learning2-Photoroom (1).png" alt="Hero Image">
+            </div>
+        </section>
+    </main>
+
+    <!-- Card Section -->
+    <div class="slider-section">
+        <!-- Section 1 -->
+        <section class="features">
+            <h2 class="timeline-title" id="timelineTitle" data-translate="advertisement">Advertisement</h2>
+            <div class="features-container">
+                <a href="reading-advertisement.html" class="feature-card">
+                    <div class="feature-icon">
+                        <img src="photo/book4.png" alt="Reading">
+                    </div>
+                    <h3 data-translate="reading">Reading</h3>
+                    <p data-translate="read_and_learn">Read and learn</p>
+                </a>
+                <a href="listening-advertisement.html" class="feature-card">
+                    <div class="feature-icon">
+                        <img src="photo/listening4.png" alt="Listening">
+                    </div>
+                    <h3 data-translate="listening">Listening</h3>
+                    <p data-translate="test_knowledge">Test your knowledge</p>
+                </a>
+                <a href="writing-advertisement.html" class="feature-card">
+                    <div class="feature-icon">
+                        <img src="photo/writing1.png" alt="Writing">
+                    </div>
+                    <h3 data-translate="writing">Writing</h3>
+                    <p data-translate="learn_through_play">Learn through play</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- Section 2 -->
+        <section class="features">
+            <h2 class="timeline-title" id="timelineTitle" data-translate="announcement">Announcement</h2>
+            <div class="features-container">
+                <a href="reading-announcement.html" class="feature-card">
+                    <div class="feature-icon">
+                        <img src="photo/book5.png" alt="Reading">
+                    </div>
+                    <h3 data-translate="reading">Reading</h3>
+                    <p data-translate="visual_learning">Visual learning</p>
+                </a>
+                <a href="listening-announcement.html" class="feature-card">
+                    <div class="feature-icon">
+                        <img src="photo/listening2.png" alt="Listening">
+                    </div>
+                    <h3 data-translate="listening">Listening</h3>
+                    <p data-translate="track_success">Track your success</p>
+                </a>
+                <a href="writing-announcement.html" class="feature-card">
+                    <div class="feature-icon">
+                        <img src="photo/writing2.png" alt="Writing">
+                    </div>
+                    <h3 data-translate="writing">Writing</h3>
+                    <p data-translate="join_discussion">Join the discussion</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- Section 3 -->
+        <section class="features">
+            <h2 class="timeline-titlee" id="timelineTitle" data-translate="opinion">Opinion</h2>
+            <div class="features-container">
+                <a href="reading-opinion.html" class="feature-card">
+                    <div class="feature-icon">
+                        <img src="photo/book2.png" alt="Reading">
+                    </div>
+                    <h3 data-translate="reading">Reading</h3>
+                    <p data-translate="practice_with_peers">Practice with peers</p>
+                </a>
+                <a href="listening-opinion.html" class="feature-card">
+                    <div class="feature-icon">
+                        <img src="photo/listening3.png" alt="Listening">
+                    </div>
+                    <h3 data-translate="listening">Listening</h3>
+                    <p data-translate="understand_better">Understand better</p>
+                </a>
+                <a href="writing-opinion.html" class="feature-card">
+                    <div class="feature-icon">
+                        <img src="photo/writing4.png" alt="Writing">
+                    </div>
+                    <h3 data-translate="writing">Writing</h3>
+                    <p data-translate="get_certified">Get certified</p>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3 data-translate="about_footer">About EnglishPath</h3>
+                <p data-translate="footer_desc">EnglishPath is a learning platform designed to improve your English skills interactively and effectively.</p>
+                <img src="photo/english path logo.png" alt="EnglishPath Logo" class="footer-logo" />
+            </div>
+            <div class="footer-section">
+                <h3 data-translate="quick_links">Quick Links</h3>
+                <ul>
+                    <li><a href="index.html" data-translate="home">Home</a></li>
+                    <li><a href="aboutpage.html" data-translate="about_us">About Us</a></li>
+                    <li><a href="feedbackpage.css" data-translate="contact">Contact</a></li>
+                    <li><a href="material.html" data-translate="material">Material</a></li>
+                    <li><a href="video.html" data-translate="video">Video</a></li>
+                    <li><a href="quiz.html" data-translate="quiz">Quiz</a></li>
+                    <li><a href="exercise.html" data-translate="exercise">Exercise</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 data-translate="contact_us">Contact Us</h3>
+                <p data-translate="phone_label">Phone: +62 878-4407-8413</p>
+                <p data-translate="email_label">Email: englishpath@email.com</p>
+                <div class="social-icons">
+                    <a href="https://wa.me/6287844078413"><i class="bi bi-whatsapp"></i></a>
+                    <a href="https://www.instagram.com/raiiiirz?igsh=MW40Mm1qdzlmbDIweQ=="><i class="bi bi-instagram"></i></a>
+                    <a href="https://t.me/hannnnorcaa?text=Halo%2C%20saya%20ingin%20bertanya%20tentang%20EnglishPath%21" target="_blank"><i class="bi bi-telegram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright" data-translate="copyright">© 2025 EnglishPath. All Rights Reserved.</div>
+    </footer>
+
+    <script src="exercise.js"></script>
+</body>
+</html>

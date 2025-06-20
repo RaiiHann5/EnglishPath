@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Listening Test</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #ffffff;
+      --secondary: #f5f9ff;
+      --accent: #3a86ff;
+      --accent-dark: #2667cc;
+      --text: #2d3748;
+      --text-light: #4a5568;
+      --correct: #48bb78;
+      --incorrect: #f56565;
+      --border: #e2e8f0;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      --shadow-hover: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+      background-color: var(--secondary);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+     header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+             width: 130px;
+            height: 40px;
+            position: absolute;
+            left: 30px;
+        }
+        
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            padding: 8px 12px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+        nav a:hover {
+            color: #3b82f6;
+        }
+
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: var(--primary);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    #progress-container {
+      width: 100%;
+      background-color: var(--secondary);
+      height: 8px;
+      border-radius: 4px;
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+
+    #progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+      transition: width 0.4s ease;
+    }
+
+    /* Audio Player */
+    .audio-player-container {
+      background: linear-gradient(135deg, #3a86ff, #2667cc);
+      border-radius: 12px;
+      padding: 1.2rem;
+      margin: 1.5rem 0;
+      box-shadow: 0 4px 15px rgba(58, 134, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #audio-player {
+      width: 100%;
+      height: 40px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+
+    .audio-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.5rem;
+      color: white;
+      font-size: 0.9rem;
+    }
+
+    /* Question Styles */
+    .question-container {
+      background-color: var(--primary);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border);
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+
+    .question {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    .question-number {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      background-color: var(--accent);
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 28px;
+      margin-right: 8px;
+      font-size: 0.9rem;
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 1rem;
+    }
+
+    .option {
+      background-color: var(--secondary);
+      padding: 1rem 1.25rem;
+      border-radius: 10px;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      transition: all 0.2s ease;
+    }
+
+    .option:hover {
+      background-color: #e6f0ff;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .option.selected {
+      background-color: #e6f0ff;
+      border-color: var(--accent);
+    }
+
+    /* Navigation Buttons */
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1.5rem;
+    }
+
+    button {
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.8rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      min-width: 150px;
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--accent-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    button:disabled {
+      background-color: #cbd5e0;
+      cursor: not-allowed;
+    }
+
+    /* Preview Page Styles */
+    .preview-question {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .preview-answer {
+      margin-top: 0.5rem;
+      padding: 0.75rem;
+      border-radius: 8px;
+      background-color: #e6f0ff;
+      border: 1px solid var(--accent);
+    }
+
+    .unanswered {
+      color: var(--incorrect);
+      font-style: italic;
+    }
+
+    /* Results Page Styles */
+    .result-question {
+      margin-bottom: 2rem;
+    }
+
+    .correct-answer {
+      background-color: rgba(72, 187, 120, 0.2);
+      border-color: var(--correct);
+    }
+
+    .incorrect-answer {
+      background-color: rgba(245, 101, 101, 0.1);
+      border-color: var(--incorrect);
+    }
+
+    .result-feedback {
+      margin-top: 0.5rem;
+      font-weight: 500;
+    }
+
+    .correct-feedback {
+      color: var(--correct);
+    }
+
+    .incorrect-feedback {
+      color: var(--incorrect);
+    }
+
+       footer {
+  background-color: #000923;
+  color: #ccc;
+  padding: 60px 50px 30px;
+  position: relative;
+  border-top: 2px solid #000;
+  box-shadow: 0 -6px 14px rgba(0, 0, 0, 0.4);
+}
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.footer-section {
+  flex: 1;
+  min-width: 250px;
+  margin-bottom: 30px;
+}
+.footer-section:first-child {
+  margin-right: 40px;
+}
+.footer-section:last-child {
+  margin-left: 40px;
+}
+.footer-section h3 {
+  color: white;
+  margin-bottom: 15px;
+}
+.footer-section ul {
+  list-style: none;
+}
+.footer-section ul li {
+  margin-bottom: 8px;
+}
+.footer-section ul li a {
+  text-decoration: none;
+  color: #bbb;
+  font-size: 14px;
+}
+.footer-section ul li a:hover {
+  color: white;
+}
+.footer-logo {
+  width: 185px;
+  height: 65px;
+  object-fit: contain;
+  margin-top: 15px;
+}
+.social-icons {
+  margin-top: 15px;
+}
+.social-icons i {
+  font-size: 20px;
+  color: #bbb;
+  margin-right: 12px;
+}
+.social-icons i:hover {
+  color: white;
+  
+}
+.copyright {
+  text-align: center;
+  color: #888;
+  font-size: 14px;
+  margin-top: 40px;
+  
+}
+  </style>
+</head>
+<body>
+
+  <header>
+        <div class="logo">
+            <img src="photo/english_path_dark.-fotor-enhance-20250517123049-removebg-preview.png" alt="Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="exercise.html">Home</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+  <div class="container">
+    <!-- Progress Bar -->
+    <div id="progress-container">
+      <div id="progress-bar"></div>
+    </div>
+
+    <!-- Part 1: Instructions -->
+    <section id="part1" class="section active">
+      <div style="padding: 2rem; background-color: var(--primary); border-radius: 12px; border: 1px solid var(--border); min-height: 400px;">
+        <h2 style="color: var(--accent-dark); margin-bottom: 1.5rem;">Listening Test Instructions</h2>
+        <ol style="padding-left: 1.5rem; margin-bottom: 2rem;">
+          <li style="margin-bottom: 1rem;">There are 3 audio clips and 5 questions</li>
+          <li style="margin-bottom: 1rem;">Audio 1 for Questions 1-2</li>
+          <li style="margin-bottom: 1rem;">Audio 2 for Questions 3-4</li>
+          <li style="margin-bottom: 1rem;">Audio 3 for Question 5</li>
+          <li style="margin-bottom: 1rem;">Answer all questions before proceeding</li>
+        </ol>
+      </div>
+      <div class="nav-buttons">
+        <button disabled>Previous</button>
+        <button id="start-test-btn">Start Test</button>
+      </div>
+    </section>
+
+    <!-- Part 2: Questions -->
+    <section id="part2" class="section">
+      <!-- Audio Player (only shown for Q1, Q3, Q5) -->
+      <div id="audio-section" class="audio-player-container" style="display: none;">
+        <h3 style="color: white; margin-bottom: 0.5rem;">Audio <span id="audio-number">1</span></h3>
+        <audio id="audio-player" controls>
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+      
+      <div class="question-container" id="question-container"></div>
+      
+      <div class="nav-buttons">
+        <button id="prev-question-btn">Previous</button>
+        <button id="next-question-btn" disabled>Next</button>
+      </div>
+    </section>
+
+    <!-- Part 3: Preview Answers -->
+    <section id="part3" class="section">
+      <div style="background-color: var(--primary); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; border: 1px solid var(--border); max-height: 60vh; overflow-y: auto;">
+        <h2 style="color: var(--accent-dark); margin-bottom: 1.5rem;">Review Your Answers</h2>
+        <p style="margin-bottom: 1.5rem;">Please review your answers before submitting. You can go back to any question to make changes.</p>
+        
+        <div id="preview-container"></div>
+      </div>
+      <div class="nav-buttons">
+        <button id="back-to-questions-btn">Back to Questions</button>
+        <button id="submit-test-btn">Submit Test</button>
+      </div>
+    </section>
+
+    <!-- Part 4: Results -->
+    <section id="part4" class="section">
+      <div style="background-color: var(--primary); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; border: 1px solid var(--border); max-height: 60vh; overflow-y: auto;" id="result-container"></div>
+      <div style="text-align: center; margin-top: 2rem;">
+        <div style="font-size: 2rem; font-weight: 700; margin: 1rem 0; color: var(--accent-dark);" id="score-display"></div>
+        <button id="restart-btn">Restart Test</button>
+      </div>
+    </section>
+  </div>
+
+   <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3 data-translate="about_footer">About EnglishPath</h3>
+        <p data-translate="footer_desc">EnglishPath is a learning platform designed to improve your English skills interactively and effectively.</p>
+        <img src="photo/english path logo.png" alt="EnglishPath Logo" class="footer-logo" />
+      </div>
+      <div class="footer-section">
+        <h3 data-translate="quick_links">Quick Links</h3>
+        <ul>
+          <li><a href="index.html" data-translate="home">Home</a></li>
+          <li><a href="about.html" data-translate="aboutus">About Us</a></li>
+          <li><a href="feedbackpage.html" data-translate="contact">Contact</a></li>
+          <li><a href="material.html" data-translate="material">Material</a></li>
+          <li><a href="video.html" data-translate="video">Video</a></li>
+          <li><a href="quiz.html" data-translate="quiz">Quiz</a></li>
+          <li><a href="exercise.html" data-translate="exercise">Exercise</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3 data-translate="contact_us">Contact Us</h3>
+        <p>Phone: +62 878-4407-8413</p>
+        <p>Email: englishpath@email.com</p>
+        <div class="social-icons">
+         <a href="https://wa.me/6287844078413"><i class="bi bi-whatsapp"></i></a>
+         <a href="https://www.instagram.com/raiiiirz?igsh=MW40Mm1qdzlmbDIweQ=="><i class="bi bi-instagram"></i></a>
+         <a href="https://t.me/hannnnorcaa?text=Halo%2C%20saya%20ingin%20bertanya%20tentang%20EnglishPath%21" target="_blank"> <i class="bi bi-telegram"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">© 2025 EnglishPath. All Rights Reserved.</div>
+  </footer> 
+
+
+  <script>
+    // Test data - 3 audio for 5 questions
+  const testData = [
+  {
+    audio: "audio/announcement1.mp3",
+    questions: [
+      {
+        question: "Why was the school trip rescheduled?",
+        options: [
+          "Because the museum was closed",
+          "Due to bad weather",
+          "Because of another school event",
+          "Because the bus was unavailable"
+        ],
+        answer: 1
+      },
+      {
+        question: "Which item must students bring for the field trip?",
+        options: [
+          "Umbrella",
+          "ID Card",
+          "Notebook and lunch",
+          "Permission letter"
+        ],
+        answer: 2
+      }
+    ]
+  },
+  {
+    audio: "audio/announcement2.mp3",
+    questions: [
+      {
+        question: "How many days are students now allowed to borrow books from the library?",
+        options: [
+          "7 days",
+          "10 days",
+          "14 days",
+          "12 days"
+        ],
+        answer: 1
+      }
+    ]
+  },
+  {
+    audio: "audio/announcement3.mp3",
+    questions: [
+      {
+        question: "What is unique about the lost pencil case?",
+        options: [
+          "It has a dolphin-shaped keychain",
+          "It has Aurelia’s photo",
+          "It is red and fluffy",
+          "It contains money"
+        ],
+        answer: 0
+      },
+      {
+        question: "What will happen if the lost pencil case is not collected by 3 p.m.?",
+        options: [
+          "It will be returned to the student",
+          "It will be thrown away",
+          "It will be given to student affairs",
+          "It will be kept in the science lab"
+        ],
+        answer: 2
+      }
+    ]
+  }
+];
+
+
+    // Flatten all questions
+    const allQuestions = [];
+    testData.forEach(audioSet => {
+      audioSet.questions.forEach(q => {
+        allQuestions.push({
+          ...q,
+          audio: audioSet.audio
+        });
+      });
+    });
+
+    let currentPart = 1;
+    let currentQuestionIndex = 0;
+    const userAnswers = new Array(allQuestions.length).fill(null);
+
+    // DOM elements
+    const progressBar = document.getElementById("progress-bar");
+    const startTestBtn = document.getElementById("start-test-btn");
+    const prevQuestionBtn = document.getElementById("prev-question-btn");
+    const nextQuestionBtn = document.getElementById("next-question-btn");
+    const backToQuestionsBtn = document.getElementById("back-to-questions-btn");
+    const submitTestBtn = document.getElementById("submit-test-btn");
+    const restartBtn = document.getElementById("restart-btn");
+
+    const audioSection = document.getElementById("audio-section");
+    const audioPlayer = document.getElementById("audio-player");
+    const audioNumberDisplay = document.getElementById("audio-number");
+    const questionContainer = document.getElementById("question-container");
+    const previewContainer = document.getElementById("preview-container");
+    const resultContainer = document.getElementById("result-container");
+    const scoreDisplay = document.getElementById("score-display");
+
+    // Update progress bar based on answered questions
+    function updateProgress() {
+      const answeredCount = userAnswers.filter(answer => answer !== null).length;
+      const progressPercent = (answeredCount / allQuestions.length) * 100;
+      progressBar.style.width = `${progressPercent}%`;
+    }
+
+    // Show current part
+    function showPart(part) {
+      currentPart = part;
+      document.querySelectorAll(".section").forEach(section => {
+        section.classList.remove("active");
+      });
+      document.getElementById(`part${part}`).classList.add("active");
+
+      if (part === 2) {
+        loadQuestion();
+      } else if (part === 3) {
+        showPreview();
+      } else if (part === 4) {
+        showResults();
+      }
+    }
+
+    // Load question with audio handling
+    function loadQuestion() {
+      const question = allQuestions[currentQuestionIndex];
+      
+      // Show/hide audio player
+      const shouldShowAudio = [0, 2, 4].includes(currentQuestionIndex); // Q1, Q3, Q5
+      audioSection.style.display = shouldShowAudio ? "block" : "none";
+      
+      // Load audio if needed
+      if (shouldShowAudio) {
+        audioPlayer.src = question.audio;
+        audioNumberDisplay.textContent = Math.floor(currentQuestionIndex / 2) + 1;
+      }
+
+      // Render question
+      questionContainer.innerHTML = `
+        <div class="question">
+          <span class="question-number">${currentQuestionIndex + 1}</span>
+          ${question.question}
+        </div>
+        <div class="options">
+          ${question.options.map((option, index) => `
+            <div class="option ${userAnswers[currentQuestionIndex] === index ? 'selected' : ''}" 
+                 data-index="${index}">
+              ${option}
+            </div>
+          `).join('')}
+        </div>
+      `;
+
+      // Add event listeners to options
+      document.querySelectorAll('.option').forEach(option => {
+        option.addEventListener('click', () => {
+          const selectedIndex = parseInt(option.getAttribute('data-index'));
+          userAnswers[currentQuestionIndex] = selectedIndex;
+          nextQuestionBtn.disabled = false;
+          option.parentNode.querySelectorAll('.option').forEach(opt => {
+            opt.classList.remove('selected');
+          });
+          option.classList.add('selected');
+          updateProgress(); // Update progress when answer is selected
+        });
+      });
+
+      // Update nav buttons
+      prevQuestionBtn.disabled = currentQuestionIndex === 0;
+      nextQuestionBtn.textContent = currentQuestionIndex === allQuestions.length - 1 ? 'Review Answers' : 'Next';
+      nextQuestionBtn.disabled = userAnswers[currentQuestionIndex] === null;
+    }
+
+    // Show preview of all answers before submitting
+    function showPreview() {
+      let html = '';
+      
+      allQuestions.forEach((question, index) => {
+        const userAnswer = userAnswers[index];
+        const hasAnswer = userAnswer !== null;
+        
+        html += `
+          <div class="preview-question">
+            <div class="question">
+              <span class="question-number">${index + 1}</span>
+              ${question.question}
+            </div>
+            ${hasAnswer ? 
+              `<div class="preview-answer">${question.options[userAnswer]}</div>` : 
+              `<div class="unanswered">Not answered yet</div>`
+            }
+            <button class="edit-question-btn" data-index="${index}" 
+                    style="margin-top: 0.5rem; padding: 0.5rem 1rem; min-width: auto; font-size: 0.85rem;">
+              Edit Answer
+            </button>
+          </div>
+        `;
+      });
+
+      previewContainer.innerHTML = html;
+      
+      // Add event listeners to edit buttons
+      document.querySelectorAll('.edit-question-btn').forEach(button => {
+        button.addEventListener('click', () => {
+          currentQuestionIndex = parseInt(button.getAttribute('data-index'));
+          showPart(2);
+        });
+      });
+    }
+
+    // Show results
+    function showResults() {
+      let correctCount = 0;
+      let html = '';
+
+      allQuestions.forEach((question, index) => {
+        const userAnswer = userAnswers[index];
+        const isCorrect = userAnswer === question.answer;
+        if (isCorrect) correctCount++;
+
+        html += `
+          <div class="result-question">
+            <div class="question">
+              <span class="question-number">${index + 1}</span>
+              ${question.question}
+            </div>
+            <div class="options">
+              ${question.options.map((option, i) => {
+                let classes = 'option';
+                if (i === question.answer) classes += ' correct-answer';
+                if (i === userAnswer && !isCorrect) classes += ' incorrect-answer';
+                return `<div class="${classes}">${option}</div>`;
+              }).join('')}
+            </div>
+            <div class="result-feedback ${isCorrect ? 'correct-feedback' : 'incorrect-feedback'}">
+              ${isCorrect ? '✓ Correct' : '✗ Incorrect - Correct answer: ' + question.options[question.answer]}
+            </div>
+          </div>
+        `;
+      });
+
+      resultContainer.innerHTML = html;
+      scoreDisplay.textContent = `Score: ${correctCount}/${allQuestions.length} (${Math.round(correctCount/allQuestions.length * 100)}%)`;
+    }
+
+    // Check if all questions are answered
+    function allQuestionsAnswered() {
+      return userAnswers.every(answer => answer !== null);
+    }
+
+    // Event listeners
+    startTestBtn.addEventListener('click', () => showPart(2));
+    
+    prevQuestionBtn.addEventListener('click', () => {
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        loadQuestion();
+      }
+    });
+    
+    nextQuestionBtn.addEventListener('click', () => {
+      if (currentQuestionIndex < allQuestions.length - 1) {
+        currentQuestionIndex++;
+        loadQuestion();
+        nextQuestionBtn.disabled = userAnswers[currentQuestionIndex] === null;
+      } else {
+        showPart(3); // Show preview page
+      }
+    });
+    
+    backToQuestionsBtn.addEventListener('click', () => {
+      showPart(2);
+    });
+    
+    submitTestBtn.addEventListener('click', () => {
+      if (allQuestionsAnswered()) {
+        showPart(4);
+      } else {
+        alert('Please answer all questions before submitting.');
+      }
+    });
+    
+    restartBtn.addEventListener('click', () => {
+      currentPart = 1;
+      currentQuestionIndex = 0;
+      userAnswers.fill(null);
+      audioPlayer.pause();
+      updateProgress(); // Reset progress bar
+      showPart(1);
+    });
+
+    // Initialize
+    showPart(1);
+    updateProgress(); // Initial progress bar update
+  </script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material</title>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+     <link rel="stylesheet" href="material.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="photo/english_path_dark.-fotor-enhance-20250517123049-removebg-preview.png" alt="Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html" data-translate="nav_home">Home</a></li>
+                <li><a href="aboutpage.html" data-translate="nav_about">About Us</a></li>
+                <li><a href="feedbackpage.html" data-translate="nav_contact">Contact</a></li>
+            </ul>
+        </nav>
+
+        <!-- Floating Translate Button -->
+  <button class="floating-translate-btn" onclick="translatePage()">
+    <img src="photo/translate.png" alt="Translate" class="translate-logo">
+  </button>
+        <!-- Hamburger Menu -->
+        <div class="hamburger" onclick="toggleSidebar()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li><a href="index.html" data-translate="nav_home">Home</a></li>
+            <li><a href="aboutpage.html" data-translate="nav_about">About Us</a></li>
+            <li><a href="feedbackpage.html" data-translate="nav_contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+    
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1 data-translate="hero_title">Discover The Joy of Learning</h1>
+                <p data-translate="hero_description">Dive into fun and interesting reading content that helps you build strong reading skills, expand your vocabulary, and enjoy learning English one page at a time.</p>
+                <button onclick="scrollToCards()" data-translate="hero_button">Learn more..</button>
+            </div>
+            <div class="hero-image">
+                <img src="photo/together4.png" alt="Hero Image">
+            </div>
+        </section>
+    </main>
+
+<main class="material-container">
+  <h1 data-translate="material_title">Material Snippet</h1>
+  <!-- Material Card 1 -->
+  <article class="material-card">
+    <div class="material-preview">
+      <h2 data-translate="announcement_title">Announcement</h2>
+      <p class="excerpt" data-translate="announcement_description">An announcement is a short, clear statement made to inform people about important news or events. It usually includes key details like what is happening, when and where it will take place, and why it matters. Announcements help ensure everyone stays updated and aware of any changes or upcoming activities in their community
+
+      <div class="meta">
+        <span class="category" data-translate="category_practical">Practical</span>
+        <span class="difficulty" data-translate="difficulty_beginner">Beginner</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- Material Card 2 -->
+  <article class="material-card">
+     <div class="material-preview">
+      <h2 data-translate="advertisement_title">Advertisement</h2>
+      <p class="excerpt" data-translate="advertisement_description">An advertisement is a message designed to promote a product or service and attract customers effectively. It uses catchy words, clear images, and persuasive language to encourage people to buy or try something successfully. Advertisements are important tools for businesses to reach their target audience and increase sales rapidly. </p>
+      <div class="meta">
+        <span class="category" data-translate="category_practical">Practical</span>
+        <span class="difficulty" data-translate="difficulty_beginner">Beginner</span>
+      </div>
+    </div>
+  </article>
+</main>
+
+ <section class="card-section" id="cards">
+    <h2 class="section-title" data-translate="topics_title">EnglishPath Topics</h2>
+    <div class="card-container">
+
+      <!-- Card 1 -->
+      <div class="card">
+        <img src="photo/advertisement.jpg" alt="Opinion">
+        <div class="card-content">   
+          <h3 data-translate="card_advertisement">Advertisement</h3>
+          <p data-translate="card_advertisement_desc">Learn how to express and respond to opinions in English.</p>
+          <a href="halmateri2.html" class="btn" data-translate="start_reading">Start Reading</a>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card">
+        <img src="photo/announcement.jpg" alt="Quiz">
+        <div class="card-content">
+          <h3 data-translate="card_announcement">Announcement</h3>
+          <p data-translate="card_announcement_desc">Test your knowledge through interactive quizzes.</p>
+          <a href="halmateri1.html" class="btn" data-translate="start_reading">Start Reading</a>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card">
+        <img src="photo/talk.jpg" alt="Practice">
+        <div class="card-content">  
+          <h3 data-translate="card_opinion">Expressing Opinion</h3>
+          <p data-translate="card_opinion_desc">Sharpen your skills with English practice questions.</p>
+          <a href="halmateri3.html" class="btn" data-translate="start_reading">Start Reading</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+ <section class="horizontal-step-container">
+    <h2 data-translate="learning_steps_title">How To Learn English Properly</h2>
+    <div class="step-wrapper">
+      <div class="step-horizontal">
+        <div class="circle">1</div>
+        <p data-translate="step1">Read Actively</p>
+      </div>
+      <div class="line-horizontal"></div>
+      <div class="step-horizontal">
+        <div class="circle">2</div>
+        <p data-translate="step2">Highlight New Keywords</p>
+      </div>
+      <div class="line-horizontal"></div>
+      <div class="step-horizontal">
+        <div class="circle">3</div>
+        <p data-translate="step3">Review & Practice</p>
+      </div>
+    </div>
+  </section>
+
+ <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3 data-translate="about_footer">About EnglishPath</h3>
+        <p data-translate="footer_desc">EnglishPath is a learning platform designed to improve your English skills interactively and effectively.</p>
+        <img src="photo/english path logo.png" alt="EnglishPath Logo" class="footer-logo" />
+      </div>
+      <div class="footer-section">
+        <h3 data-translate="quick_links">Quick Links</h3>
+        <ul>
+          <li><a href="index.html" data-translate="home">Home</a></li>
+          <li><a href="aboutpage.html" data-translate="aboutus">About Us</a></li>
+          <li><a href="feedbackpage.css" data-translate="contact">Contact</a></li>
+          <li><a href="material.html" data-translate="material">Material</a></li>
+          <li><a href="video.html" data-translate="video">Video</a></li>
+          <li><a href="quiz.html" data-translate="quiz">Quiz</a></li>
+          <li><a href="exercise.html" data-translate="exercise">Exercise</a></li>
+        </ul>
+        
+      </div>
+      <div class="footer-section">
+        <h3 data-translate="contact_us">Contact Us</h3>
+        <p>Phone: +62 878-4407-8413</p>
+        <p>Email: englishpath@email.com</p>
+        <div class="social-icons">
+         <a href="https://wa.me/6287844078413"><i class="bi bi-whatsapp"></i></a>
+         <a href="https://www.instagram.com/raiiiirz?igsh=MW40Mm1qdzlmbDIweQ=="><i class="bi bi-instagram"></i></a>
+         <a href="https://t.me/hannnnorcaa?text=Halo%2C%20saya%20ingin%20bertanya%20tentang%20EnglishPath%21" target="_blank"> <i class="bi bi-telegram"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">© 2025 EnglishPath. All Rights Reserved.</div>
+  </footer>
+
+<script src="material.js"></script>
+
+</body>
+</html>
